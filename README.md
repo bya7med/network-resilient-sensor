@@ -36,3 +36,11 @@ The pipeline was code-reviewed with teammates in the Raspberry Pi society.
 ## Where it runs
 
 Python 3, on the Pi or on a laptop. A laptop run can force the link down and back up, which is enough to check a drop without a board on the desk.
+
+```bash
+python3 -m venv .venv
+source .venv/bin/activate
+pip install -r requirements.txt
+python3 simulate_drop.py
+python3 -m pytest
+```
