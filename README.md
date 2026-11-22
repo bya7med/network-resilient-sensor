@@ -21,6 +21,14 @@ The sink keeps a reading id once. If the response was lost and the node tries ag
 
 `sensor/local_buffer.py` keeps readings in a SQLite file on the machine. That file is gitignored. Putting the same reading id in again does not add a row. A sequence number is unique for a sensor. `pending` returns what is still waiting, oldest sequence first.
 
+## Reconnect
+
+`upload_pending` does nothing while the link is down. When the link is back it walks on from the last acknowledged sequence. A missing number raises `Gap` and leaves the later readings in the file.
+
+`simulate_drop.py` takes two samples, uploads them, drops the link, takes two more, then reconnects. The sink should show sequences 1 through 4, each once.
+
+The sink in this copy is in memory so the script can print the series. A collector on the other end has to treat the reading id the same way and store it once.
+
 ## Review
 
 The pipeline was code-reviewed with teammates in the Raspberry Pi society.
